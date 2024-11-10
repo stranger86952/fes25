@@ -1,0 +1,52 @@
+#header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    font-size: 1.8rem;
+    color: white;
+    font-weight: bold;
+    background-color: black;
+    z-index: 10;
+}
+#header-2 {
+    display: flex;
+    justify-content: space-between;
+}
+#menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+#menu {
+    display: flex;
+    gap: 1rem;
+}
+#menu a {
+    background-color: black;
+    padding: 0 0.25rem;
+    color: white;
+}
+#menu a:hover {
+    background-color: white;
+    color: black;
+}
+@media (max-width: 768px) {
+    #header {
+        display: block;
+    }
+    #menu {
+        display: none;
+        flex-direction: column;
+        text-align: right;
+        gap: 0;
+    }
+    #menu-toggle {
+        display: flex;
+        align-items: center;
+    }
+    #menu.show {
+        display: flex;
+    }
+}
