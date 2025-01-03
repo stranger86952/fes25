@@ -5,7 +5,7 @@ function renderHeader(html) {
     });
 }
 
-fetch('/tpl/header.html')
+fetch('/fes25/tpl/header.html')
     .then(response => response.text())
     .then(html => renderHeader(html))
     .catch(err => console.error('(k_sub)', err));

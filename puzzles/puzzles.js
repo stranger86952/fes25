@@ -167,7 +167,7 @@ function updateFilters() {
     window.location.search = params.toString();
 }
 
-fetch('./puzzles.csv')
+fetch('/fes25/puzzles/puzzles.csv')
     .then(response => response.text())
     .then(csv => renderPuzzles(csv))
     .catch(err => console.error('(k_sub)', err));
