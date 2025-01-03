@@ -46,7 +46,7 @@ function renderPuzzles(csv) {
         }
 
         const img = document.createElement('img');
-        img.src = `/puzzles/img/${puzzle.id}.png`;
+        img.src = `./puzzles/img/${puzzle.id}.png`;
         img.alt = puzzle.kind;
 
         const title = document.createElement('h5');
