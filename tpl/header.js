@@ -1,11 +1,11 @@
-fetch('/tpl/header.html')
-  .then(response => response.text())
-  .then(html => {
-    // embedding /tpl/header.html
+function renderHeader(html) {
     document.querySelector('header').innerHTML = html;
-    // setting header button
     document.getElementById('menu-toggle').addEventListener('click', () => {
         document.getElementById('menu').classList.toggle('show');
     });
-  })
-  .catch(err => console.error('Failed to load /tpl/header.html: ', err));
+}
+
+fetch('/tpl/header.html')
+    .then(response => response.text())
+    .then(html => renderHeader(html))
+    .catch(err => console.error('(k_sub)', err));

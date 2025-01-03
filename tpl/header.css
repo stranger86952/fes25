@@ -1,11 +1,11 @@
 #header {
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: white;
     font-weight: bold;
     background-color: black;
@@ -23,7 +23,7 @@
     display: flex;
     gap: 1rem;
 }
-#menu a {
+#header-2 a, #menu a {
     background-color: black;
     padding: 0 0.25rem;
     color: white;
@@ -35,11 +35,12 @@
 @media (max-width: 768px) {
     #header {
         display: block;
+        font-size: 1.4rem;
     }
     #menu {
         display: none;
         flex-direction: column;
-        text-align: right;
+        text-align: left;
         gap: 0;
     }
     #menu-toggle {

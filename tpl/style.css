@@ -6,12 +6,12 @@ body {
 }
 main {
     max-width: 1200px;
-    margin: 80px auto 0 auto;
+    margin: 1rem auto 0 auto;
     padding: 10px;
     position: relative;
 }
 a {
-    text-decoration:none;
+    text-decoration: none;
 }
 iframe {
     width: 100%;

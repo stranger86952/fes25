@@ -1,0 +1,15 @@
+#footer {
+    position: sticky;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    font-size: 1.2rem;
+    color: gray;
+    font-weight: bold;
+    background-color: black;
+    z-index: 10;
+}
