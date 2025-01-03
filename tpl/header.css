@@ -1,10 +1,11 @@
 #header {
     position: sticky;
+    display: flex;
     top: 0;
     width: 100%;
     justify-content: space-between;
     padding: 15px;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: white;
     font-weight: bold;
     background-color: black;
@@ -33,6 +34,7 @@
 }
 @media (max-width: 768px) {
     #header {
+        display: block;
         font-size: 1.2rem;
     }
     #menu {
