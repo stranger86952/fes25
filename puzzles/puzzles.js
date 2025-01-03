@@ -37,7 +37,7 @@ function renderPuzzles(csv) {
         }
 
         const col = document.createElement('div');
-        col.className = 'col-sm-6 col-md-4 col-lg-3';
+        col.className = 'col-6 col-md-4 col-lg-3';
 
         const card = document.createElement('div');
         card.className = 'puzzle-card';
