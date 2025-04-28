@@ -4,18 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="灘パズルサークルの2025年文化祭用サイトです。部員が作成した問題が載っています。">
+    <meta name="description" content="灘パズルサークルの2025年文化祭用サイトです。ブースの情報を確認したり、部員が作成したパズルを解いたりすることができます！">
     <meta name="author" content="k_sub">
+    <meta property="og:title" content="ページタイトル">
+    <meta property="og:description" content="灘パズルサークルの2025年文化祭用サイトです。ブースの情報を確認したり、部員が作成したパズルを解いたりすることができます！">
+    <meta property="og:image" content="../assets/og-image.png">
+    <meta property="og:type" content="website">
     <title>灘パズルサークル｜2025年文化祭</title>
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/fes25/tpl/style.css">
-    <link rel="stylesheet" href="/fes25/puzzles/puzzles.css">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 
 <body>
-    <header></header>
-    <script src="/fes25/tpl/header.js"></script>
+    <header id="header">
+        <div id="header-2">
+            <a href="./">灘パズルサークル｜2025年文化祭</a>
+            <div id="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+        </div>
+        <div id="menu">
+            <a href="../">HOME</a>
+            <a href="../info/">INFO</a>
+            <a href="./">PUZZLES</a>
+        </div>
+    </header>
     <main>
         <h1>問題リスト</h1>
         <div id="puzzles-header" class="row">
@@ -42,10 +55,11 @@
             </div>
         </div>
         <div id="puzzles-table" class="row"></div>
-        <script src="/fes25/puzzles/puzzles.js"></script>
+        <script src="./puzzles.js"></script>
     </main>
-    <footer></footer>
-    <script src="/fes25/tpl/footer.js"></script>
+    <footer id="footer">
+        <div>©2025, Nada Puzzle Club</div>
+    </footer>
 </body>
 
 </html>

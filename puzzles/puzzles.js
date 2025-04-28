@@ -1,5 +1,5 @@
 function renderPuzzles(csv) {
-    // "id","status","kind","difficulty","author","link"
+    // "id","visibility","kind","difficulty","author","link"
     const lines = csv.split('\n');
     const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
     const puzzlesTable = document.getElementById('puzzles-table');
@@ -23,6 +23,10 @@ function renderPuzzles(csv) {
         }, {});
         kindsSet.add(puzzle.kind);
         renderFilters(Array.from(kindsSet));
+
+        if (puzzle.visibility !== 'public') {
+
+        }
 
         if (selectedKind !== 'all' && puzzle.kind !== selectedKind) {
             return;
@@ -167,7 +171,7 @@ function updateFilters() {
     window.location.search = params.toString();
 }
 
-fetch('/fes25/puzzles/puzzles.csv')
+fetch('./puzzles.csv')
     .then(response => response.text())
     .then(csv => renderPuzzles(csv))
     .catch(err => console.error('(k_sub)', err));
