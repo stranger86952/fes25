@@ -5,13 +5,15 @@ function renderPuzzles(csv) {
     const puzzlesTable = document.getElementById('puzzles-table');
     const savedStatus = new Set(localStorage.getItem('puzzleStatus')?.split(',') || []);
     const urlParams = new URLSearchParams(window.location.search);
-    
+
     const selectedKind = urlParams.get('kind') || 'all';
     const minDifficulty = parseInt(urlParams.get('minDifficulty')) || 1;
     const maxDifficulty = parseInt(urlParams.get('maxDifficulty')) || 5;
     const selectedStatus = urlParams.get('status') || 'all';
 
-    const kindsSet = new Set();
+    const kindsSet = new Set(["掛け算リンク", "シャカシャカ", "スリザーリンク", "ぬりかべ", "ののぐらむ", "ナンバーリンク", "四角に切れ", "シンプルループ", "カックロ", "フィッシング", "へやわけ", "ましゅ", "美術館", "LITS"]);
+    const puzzles = [];
+
     puzzlesTable.innerHTML = '';
 
     // It doesn't work when some error lines are included in puzzles.csv
@@ -21,14 +23,12 @@ function renderPuzzles(csv) {
             obj[header] = values[index];
             return obj;
         }, {});
-        kindsSet.add(puzzle.kind);
-        renderFilters(Array.from(kindsSet));
 
         if (puzzle.visibility !== 'public') {
-
+            return;
         }
 
-        if (selectedKind !== 'all' && puzzle.kind !== selectedKind) {
+        if ((!kindsSet.has(puzzle.kind)) || (selectedKind !== 'all' && puzzle.kind !== selectedKind)) {
             return;
         }
 
@@ -40,6 +40,26 @@ function renderPuzzles(csv) {
             return;
         }
 
+        puzzles.push(puzzle);
+    });
+
+    // Sort puzzles by kind, difficulty, and then id
+    puzzles.sort((a, b) => {
+        const kindOrder = Array.from(kindsSet);
+        const kindIndexA = kindOrder.indexOf(a.kind);
+        const kindIndexB = kindOrder.indexOf(b.kind);
+        if (kindIndexA !== kindIndexB) {
+            return kindIndexA - kindIndexB;
+        }
+
+        if (a.difficulty !== b.difficulty) {
+            return a.difficulty - b.difficulty;
+        }
+
+        return a.id - b.id;
+    });
+
+    puzzles.forEach(puzzle => {
         const col = document.createElement('div');
         col.className = 'col-6 col-md-4 col-lg-3';
 
@@ -50,7 +70,7 @@ function renderPuzzles(csv) {
         }
 
         const img = document.createElement('img');
-        img.src = `/fes25/puzzles/img/${puzzle.id}.png`;
+        img.src = `./img/${puzzle.id}.png`;
         img.alt = puzzle.kind;
 
         const title = document.createElement('h5');
@@ -92,6 +112,8 @@ function renderPuzzles(csv) {
 
         puzzlesTable.appendChild(col);
     });
+
+    renderFilters(Array.from(kindsSet));
 }
 
 
