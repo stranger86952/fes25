@@ -18,7 +18,7 @@ function renderPuzzles(csv) {
 
     // It doesn't work when some error lines are included in puzzles.csv
     lines.slice(1).forEach(line => {
-        const values = line.split(',').map(v => v.replace(/"/g, '').trim());
+        const values = parseCsvLine(line).map(v => v.replace(/"/g, '').trim());
         const puzzle = headers.reduce((obj, header, index) => {
             obj[header] = values[index];
             return obj;
@@ -116,6 +116,24 @@ function renderPuzzles(csv) {
     renderFilters(Array.from(kindsSet));
 }
 
+function parseCsvLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            result.push(current);
+            current = '';
+        } else {
+            current += char;
+        }
+    }
+    result.push(current);
+    return result.map(v => v.trim());
+}
 
 function renderFilters(kinds) {
     const kindSelect = document.getElementById('kind-select');
@@ -176,7 +194,6 @@ function renderFilters(kinds) {
         window.location.href = window.location.pathname;
     };
 }
-
 
 function updateFilters() {
     const kind = document.getElementById('kind-select').value;
