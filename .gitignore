@@ -1,2 +1,3 @@
 SECRET.md
-./puzzles/thumbnail.py
+./puzzles/list/thumbnail.py
+./puzzles/generator.py

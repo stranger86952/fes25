@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     download_puzzles(
         csv_path='./puzzles.csv',
-        img_dir='./img',
+        img_dir='./thumbnails',
         start_id=start_id,
         end_id=end_id
     )

@@ -1,22 +1,22 @@
-function renderPuzzles(csv) {
+function renderList(csv) {
     // "id","visibility","kind","difficulty","author","link"
     const lines = csv.split('\n');
     const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
-    const puzzlesTable = document.getElementById('puzzles-table');
+    const listTable = document.getElementById('list-table');
     const savedStatus = new Set(localStorage.getItem('puzzleStatus')?.split(',') || []);
     const urlParams = new URLSearchParams(window.location.search);
 
-    const selectedKind = urlParams.get('kind') || 'all';
+    const selectedKind = urlParams.get('kind') || 'All';
     const minDifficulty = parseInt(urlParams.get('minDifficulty')) || 1;
     const maxDifficulty = parseInt(urlParams.get('maxDifficulty')) || 5;
-    const selectedStatus = urlParams.get('status') || 'all';
+    const selectedStatus = urlParams.get('status') || 'All';
 
     const kindsSet = new Set(["掛け算リンク", "シャカシャカ", "スリザーリンク", "ぬりかべ", "ののぐらむ", "ナンバーリンク", "四角に切れ", "シンプルループ", "カックロ", "フィッシング", "へやわけ", "ましゅ", "美術館", "LITS"]);
-    const puzzles = [];
+    const list = [];
 
-    puzzlesTable.innerHTML = '';
+    listTable.innerHTML = '';
 
-    // It doesn't work when some error lines are included in puzzles.csv
+    // It doesn't work when some error lines are included in list.csv
     lines.slice(1).forEach(line => {
         const values = parseCsvLine(line).map(v => v.replace(/"/g, '').trim());
         const puzzle = headers.reduce((obj, header, index) => {
@@ -28,7 +28,7 @@ function renderPuzzles(csv) {
             return;
         }
 
-        if ((!kindsSet.has(puzzle.kind)) || (selectedKind !== 'all' && puzzle.kind !== selectedKind)) {
+        if ((!kindsSet.has(puzzle.kind)) || (selectedKind !== 'All' && puzzle.kind !== selectedKind)) {
             return;
         }
 
@@ -36,15 +36,15 @@ function renderPuzzles(csv) {
             return;
         }
 
-        if (selectedStatus !== 'all' && ((selectedStatus === 'solved' && !savedStatus.has(puzzle.id)) || (selectedStatus === 'unsolved' && savedStatus.has(puzzle.id)))) {
+        if (selectedStatus !== 'All' && ((selectedStatus === 'solved' && !savedStatus.has(puzzle.id)) || (selectedStatus === 'unsolved' && savedStatus.has(puzzle.id)))) {
             return;
         }
 
-        puzzles.push(puzzle);
+        list.push(puzzle);
     });
 
-    // Sort puzzles by kind, difficulty, and then id
-    puzzles.sort((a, b) => {
+    // Sort list by kind, difficulty, and then id
+    list.sort((a, b) => {
         const kindOrder = Array.from(kindsSet);
         const kindIndexA = kindOrder.indexOf(a.kind);
         const kindIndexB = kindOrder.indexOf(b.kind);
@@ -59,25 +59,25 @@ function renderPuzzles(csv) {
         return a.id - b.id;
     });
 
-    puzzles.forEach(puzzle => {
+    list.forEach(puzzle => {
         const col = document.createElement('div');
         col.className = 'col-6 col-md-4 col-lg-3';
 
         const card = document.createElement('div');
-        card.className = 'puzzle-card';
+        card.className = 'list-card';
         if (savedStatus.has(puzzle.id)) {
             card.style.backgroundColor = 'lightgreen';
         }
 
         const img = document.createElement('img');
-        img.src = `./img/${puzzle.id}.png`;
+        img.src = `./thumbnails/${puzzle.id}.png`;
         img.alt = puzzle.kind;
 
         const title = document.createElement('h5');
         title.textContent = `☆${puzzle.difficulty} ${puzzle.kind}`;
 
         const author = document.createElement('p');
-        author.textContent = `Author: ${puzzle.author}`;
+        author.textContent = `作者: ${puzzle.author}`;
 
         const recordButton = document.createElement('i');
         recordButton.className = savedStatus.has(puzzle.id)
@@ -99,7 +99,7 @@ function renderPuzzles(csv) {
 
         const link = document.createElement('a');
         link.href = puzzle.link;
-        link.textContent = 'Solve Puzzle';
+        link.textContent = 'パズルを開く';
         link.target = '_blank';
         link.className = 'btn btn-primary btn-sm';
 
@@ -110,10 +110,32 @@ function renderPuzzles(csv) {
         card.appendChild(link);
         col.appendChild(card);
 
-        puzzlesTable.appendChild(col);
+        listTable.appendChild(col);
     });
 
+    if (list.length === 0) {
+        const message = document.createElement('p');
+        message.textContent = '条件に合うパズルは見つかりませんでした';
+        message.className = 'text-center text-muted mt-4';
+        message.style.marginBottom = '20px';
+        listTable.appendChild(message);
+    }
+
     renderFilters(Array.from(kindsSet));
+
+    fetch('./rules.yaml')
+    .then(res => res.text())
+    .then(yamlText => {
+        const rules = jsyaml.load(yamlText);
+        const detailDiv = document.getElementById('list-detail');
+        if (rules[selectedKind]) {
+            // Definitely I dislike innerHTML too, but yeah, it's what it is.
+            detailDiv.innerHTML = rules[selectedKind];
+        } else {
+            detailDiv.textContent = '';
+        }
+    })
+    .catch(err => console.error('Failed to load rules.yaml:', err));
 }
 
 function parseCsvLine(line) {
@@ -141,7 +163,9 @@ function renderFilters(kinds) {
     const difficultyMaxSelect = document.getElementById('difficulty-max');
     const statusSelect = document.getElementById('status-select');
 
-    kindSelect.innerHTML = '<option value="all">All</option>';
+    const difficultySet = ["☆1 おてごろ", "☆2 ふつう", "☆3 むずかしい", "☆4 激ムズ", "☆5 鬼"];
+
+    kindSelect.innerHTML = '<option value="All">全て</option>';
     kinds.forEach(kind => {
         const option = document.createElement('option');
         option.value = kind;
@@ -159,21 +183,21 @@ function renderFilters(kinds) {
         if (i <= maxDifficulty) {
             const option = document.createElement('option');
             option.value = i;
-            option.textContent = i;
+            option.textContent = difficultySet[i-1];
             difficultyMinSelect.appendChild(option);
         }
         if (i >= minDifficulty) {
             const option = document.createElement('option');
             option.value = i;
-            option.textContent = i;
+            option.textContent = difficultySet[i-1];
             difficultyMaxSelect.appendChild(option);
         }
     }
 
-    kindSelect.value = params.get('kind') || 'all';
+    kindSelect.value = params.get('kind') || 'All';
     difficultyMinSelect.value = minDifficulty;
     difficultyMaxSelect.value = maxDifficulty;
-    statusSelect.value = params.get('status') || 'all';
+    statusSelect.value = params.get('status') || 'All';
 
     kindSelect.onchange = updateFilters;
     difficultyMinSelect.onchange = () => {
@@ -202,15 +226,15 @@ function updateFilters() {
     const status = document.getElementById('status-select').value;
 
     const params = new URLSearchParams();
-    if (kind !== 'all') params.set('kind', kind);
+    if (kind !== 'All') params.set('kind', kind);
     if (minDifficulty !== '1') params.set('minDifficulty', minDifficulty);
     if (maxDifficulty !== '5') params.set('maxDifficulty', maxDifficulty);
-    if (status !== 'all') params.set('status', status);
+    if (status !== 'All') params.set('status', status);
 
     window.location.search = params.toString();
 }
 
-fetch('./puzzles.csv')
+fetch('./list.csv')
     .then(response => response.text())
-    .then(csv => renderPuzzles(csv))
+    .then(csv => renderList(csv))
     .catch(err => console.error('(k_sub)', err));

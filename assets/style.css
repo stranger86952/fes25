@@ -11,6 +11,13 @@ main {
     padding: 10px;
     position: relative;
 }
+main ul {
+    margin-bottom: 1em;
+    padding-left: 1.2em;
+}
+main li {
+    margin-bottom: 0.5em;
+}
 a {
     text-decoration: none;
 }
@@ -28,7 +35,7 @@ iframe {
     top: 0;
     width: 100%;
     justify-content: space-between;
-    padding: 15px;
+    padding: 15px 30px;
     font-size: 1.5rem;
     color: white;
     font-weight: bold;
@@ -78,7 +85,7 @@ iframe {
 
 /* footer */
 #footer {
-    position: sticky;
+    position: relative;
     display: flex;
     text-align: center;
     bottom: 0;
