@@ -1,3 +1,6 @@
+const kindsSet = new Set(["掛け算リンク", "シャカシャカ", "スリザーリンク", "ぬりかべ", "ののぐらむ", "ナンバーリンク", "四角に切れ", "シンプルループ", "カックロ", "フィッシング", "へやわけ", "ましゅ", "美術館", "LITS"]);
+const difficultySet = ["☆1 おてごろ", "☆2 ふつう", "☆3 むずかしい", "☆4 激ムズ", "☆5 鬼"];
+
 function renderList(csv) {
     // "id","visibility","kind","difficulty","author","link"
     const lines = csv.split('\n');
@@ -11,9 +14,7 @@ function renderList(csv) {
     const maxDifficulty = parseInt(urlParams.get('maxDifficulty')) || 5;
     const selectedStatus = urlParams.get('status') || 'All';
 
-    const kindsSet = new Set(["掛け算リンク", "シャカシャカ", "スリザーリンク", "ぬりかべ", "ののぐらむ", "ナンバーリンク", "四角に切れ", "シンプルループ", "カックロ", "フィッシング", "へやわけ", "ましゅ", "美術館", "LITS"]);
     const list = [];
-
     listTable.innerHTML = '';
 
     // It doesn't work when some error lines are included in list.csv
@@ -162,8 +163,6 @@ function renderFilters(kinds) {
     const difficultyMinSelect = document.getElementById('difficulty-min');
     const difficultyMaxSelect = document.getElementById('difficulty-max');
     const statusSelect = document.getElementById('status-select');
-
-    const difficultySet = ["☆1 おてごろ", "☆2 ふつう", "☆3 むずかしい", "☆4 激ムズ", "☆5 鬼"];
 
     kindSelect.innerHTML = '<option value="All">全て</option>';
     kinds.forEach(kind => {
