@@ -8,13 +8,15 @@
     <meta name="author" content="k_sub">
     <meta property="og:title" content="灘パズルサークル｜2025年文化祭">
     <meta property="og:description" content="灘パズルサークルの2025年文化祭用サイトです。ブースの情報を確認したり、部員が作成したパズルを解いたりすることができます！">
-    <meta property="og:image" content="https://github.com/stranger86952/fes25/blob/main/assets/og-image.png">
+    <meta property="og:image" content="https://stranger86952.github.io/fes25/assets/og-image.png">
     <meta property="og:type" content="website">
     <title>灘パズルサークル｜2025年文化祭</title>
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./assets/icon.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
@@ -25,7 +27,7 @@
             <div id="menu-toggle"><i class="fa-solid fa-bars"></i></div>
         </div>
         <div id="menu">
-            <a href="../">HOME</a>
+            <a href="./">HOME</a>
             <a href="./puzzles/">PUZZLES</a>
         </div>
         <script>
@@ -44,7 +46,7 @@
                         <ul>
                             <li>
                                 高校棟 2F H3-4<br>
-                                <img src="./access.png" style="width:100%; cursor:pointer;" data-bs-toggle="modal" data-bs-target="#accessModal">
+                                <img src="./img/access.png" style="width:100%; cursor:pointer;" data-bs-toggle="modal" data-bs-target="#accessModal">
                                 <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-dialog-centered">
                                       <div class="modal-content">
@@ -53,7 +55,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <img src="./access.png" alt="ブースの場所" class="img-fluid">
+                                            <img src="./img/access.png" alt="ブースの場所" class="img-fluid">
                                         </div>
                                       </div>
                                     </div>
@@ -78,10 +80,81 @@
                 </ul>
             </div>
             <div class="col-sm-12 col-md-6">
-                <h1>「weave」公式アカウント</h1>
-                <a class="twitter-timeline" href="https://twitter.com/Nada_festival?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer">Tweets by Nada_festival</a>
-                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <h1>アナウンス</h1>
+                <div>
+                    <div class="announce">
+                        <div class="announce-header">
+                            <h3 class="announce-title">サイト公開</h3>
+                            <span class="announce-date">2025/04/30</span>
+                        </div>
+                        <p class="announce-content">
+                            パズルサークルの2025年文化祭用サイトを公開しました。
+                        </p>
+                    </div>                    
+                </div>
+                <h1>各種リンク</h1>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="./img/puzzle.png">
+                                </div>
+                                <div class="flip-card-back">
+                                    <div>パズルサークル(2024年文化祭)</div>
+                                    <a href="https://puzzle.nada-sc.jp/" target="_blank" rel="noopener noreferrer">リンクを開く</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div>パズルサークル公式X</div>
+                                    <a href="https://x.com/nadapuzzle" target="_blank" rel="noopener noreferrer">リンクを開く</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="./img/weave.svg">
+                                </div>
+                                <div class="flip-card-back">
+                                    <div>weave公式サイト</div>
+                                    <a href="https://fest79.nada-sc.jp/" target="_blank" rel="noopener noreferrer">リンクを開く</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <i class="fa-brands fa-youtube"></i>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div>weave公式YouTube</div>
+                                    <a href="https://www.youtube.com/@nada_schoolfestival" target="_blank" rel="noopener noreferrer">リンクを開く</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <script>
+                document.querySelectorAll('.flip-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        card.classList.toggle('flipped');
+                    });
+                });
+            </script>              
         </div>
     </main>
     <footer id="footer">
