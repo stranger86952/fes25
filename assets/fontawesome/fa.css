@@ -49,6 +49,6 @@
 .fa-solid.fa-puzzle-piece::before {
     content: "\f12e";
 }
-.fa-regular.fa-square-check::before {
+.fa-square-check::before {
     content: "\f14a";
 }
