@@ -105,3 +105,17 @@ iframe {
         font-size: 0.8rem;
     }
 }
+
+/* notice */
+.notice {
+    background-color: #f0f8ff;
+    color: #003366;
+    border: 1px solid #cce5ff;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 0 auto 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}

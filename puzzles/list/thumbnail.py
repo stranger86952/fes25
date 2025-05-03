@@ -43,7 +43,7 @@ if __name__ == "__main__":
         exit(1)
 
     download_puzzles(
-        csv_path='./puzzles.csv',
+        csv_path='./list.csv',
         img_dir='./thumbnails',
         start_id=start_id,
         end_id=end_id
